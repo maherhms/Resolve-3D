@@ -25,7 +25,7 @@ jobs:
       run: dotnet restore "./Resolve 3D/Resolve3D.Tests/Resolve3D.Tests.csproj"
 
     - name: Build solution
-      run: dotnet build --configuration Release
+      run: dotnet build "./Resolve 3D/Resolve3D.Tests/Resolve3D.Tests.csproj" --configuration Release
 
     - name: Run tests
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test "./Resolve 3D/Resolve3D.Tests/Resolve3D.Tests.csproj" --no-build --verbosity normal
