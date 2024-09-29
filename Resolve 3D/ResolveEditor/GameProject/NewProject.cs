@@ -63,7 +63,7 @@ namespace ResolveEditor.GameProject
         public string ProjectFilePath { get; set; }
     }
 
-    internal class NewProject : ViewModelBase
+    public class NewProject : ViewModelBase
     {
         //TODO: get path from the installation location
         private readonly string _templatePath = @"..\..\ResolveEditor\ProjectTemplates\";
@@ -115,7 +115,7 @@ namespace ResolveEditor.GameProject
         /// - The project directory does not already exist with contents.
         /// </summary>
         /// <returns>True if the project path and name are valid; otherwise, false.</returns>
-        private bool ValidateProjectPath()
+        public bool ValidateProjectPath()
         {
             var path = ProjectPath;
             if (!Path.EndsInDirectorySeparator(path)) path += @"\";
