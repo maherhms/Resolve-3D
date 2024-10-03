@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ResolveEditor"
         xmlns:editors="clr-namespace:ResolveEditor.Editors"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="Resolve Editor" Height="450" Width="800">
+        Title="Resolve Editor" Height="1080" Width="1920">
     <Grid>
         <editors:WorldEditorView />
     </Grid>

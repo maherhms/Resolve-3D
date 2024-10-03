@@ -48,6 +48,7 @@ namespace ResolveEditor.GameProject
             if (project != null)
             {
                 dialogResult = true;
+                win.DataContext = project;
             }
             win.DialogResult = dialogResult;
             win.Close();
