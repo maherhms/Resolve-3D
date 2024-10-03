@@ -28,4 +28,10 @@ jobs:
       run: dotnet build "./Resolve 3D/Resolve3D.Tests/Resolve3D.Tests.csproj" --configuration Release
 
     - name: Run tests
-      run: dotnet test "./Resolve 3D/Resolve3D.Tests/Resolve3D.Tests.csproj" --verbosity normal
+      run: dotnet test "./Resolve 3D/Resolve3D.Tests/Resolve3D.Tests.csproj" --logger "trx;LogFileName=test_results.trx" --results-directory "./TestResults"
+
+    - name: Publish Test Results
+      uses: actions/upload-artifact@v2
+      with:
+        name: Test Results
+        path: ./TestResults/test_results.trx
