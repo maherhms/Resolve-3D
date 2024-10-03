@@ -27,11 +27,11 @@ jobs:
     - name: Build solution
       run: dotnet build "./Resolve 3D/Resolve3D.Tests/Resolve3D.Tests.csproj" --configuration Release
 
-    - name: Run tests
-      run: dotnet test "./Resolve 3D/Resolve3D.Tests/Resolve3D.Tests.csproj" --logger "trx;LogFileName=test_results.trx" --results-directory "./TestResults"
+    - name: Run tests and generate JUnit report
+      run: dotnet test "./Resolve 3D/Resolve3D.Tests/Resolve3D.Tests.csproj" --logger "junit;LogFileName=test-results.xml"
 
-    - name: Publish Test Results
-      uses: actions/upload-artifact@v3
+    - name: Upload Test Results
+      uses: actions/upload-test-results@v1
       with:
-        name: Test Results
-        path: ./TestResults/test_results.trx
+        format: junit
+        path: './Resolve 3D/Resolve3D.Tests/TestResults/test-results.xml'
