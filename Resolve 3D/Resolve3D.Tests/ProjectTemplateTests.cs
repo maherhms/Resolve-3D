@@ -5,9 +5,73 @@ using ResolveEditor.GameProject;
 using ResolveEditor.Utilities;
 using System.Runtime.Serialization;
 using System.Diagnostics;
+using ResolveEditor;
 
 public class ProjectTemplateTests
 {
+    [Fact]
+    public void RelayCommandExecutesProperly()
+    {
+        // Arrange
+        bool executed = false;
+        var command = new RelayCommand<object>(x => executed = true);
+
+        // Act
+        command.Execute(null);
+
+        // Assert
+        Assert.True(executed);  // Command should have executed the action
+    }
+
+    [Fact]
+    public void CanRedoRemoveScene()
+    {
+        // Arrange
+        var project = new Project("TestProject", "C:\\Test\\");
+        project.AddScene.Execute(null); // Add a scene
+        var addedScene = project.Scenes.Last();
+
+        // Act: Remove the scene
+        project.RemoveScene.Execute(addedScene);
+        Project.UndoRedo.Undo(); // Undo the remove (scene re-added)
+        Project.UndoRedo.Redo(); // Redo the remove
+
+        // Assert
+        Assert.DoesNotContain(addedScene, project.Scenes); // Scene should be removed after redo
+    }
+
+    [Fact]
+    public void CanUndoAddScene()
+    {
+        // Arrange
+        var project = new Project("TestProject", "C:\\Test\\");
+        project.AddScene.Execute(null);
+        var addedScene = project.Scenes.Last();
+
+        // Act
+        Project.UndoRedo.Undo();  // Use the static reference here
+
+        // Assert
+        Assert.DoesNotContain(addedScene, project.Scenes);  // Scene should be removed after undo
+        Assert.Single(Project.UndoRedo.RedoList);  // Redo list should contain the undone action
+    }
+
+
+    [Fact]
+    public void CanAddScene()
+    {
+        // Arrange
+        var project = new Project("TestProject", "C:\\Test\\");
+
+        // Act
+        project.AddScene.Execute(null);
+        var newScene = project.Scenes.Last();
+
+        // Assert
+        Assert.NotNull(newScene);
+        Assert.Equal("New Scene 0", newScene.Name);  // Assuming it's the first scene added
+    }
+
     [Fact]
     public void CreateProject_ShouldCreateProjectStructure()
     {

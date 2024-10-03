@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace ResolveEditor
 {
-    internal class RelayCommand<T> : ICommand
+    public class RelayCommand<T> : ICommand
     {
         private readonly Action<T> _execute;
         private readonly Predicate<T> _canExecute;
