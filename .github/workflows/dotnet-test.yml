@@ -1,3 +1,12 @@
+# .NET Core CI Pipeline
+# This pipeline automates building and testing a .NET project.
+# It performs the following:
+# 1. Checkout the latest code from the repository.
+# 2. Setup the .NET SDK environment.
+# 3. Install dependencies via `dotnet restore`.
+# 4. Build the project in Release mode using `dotnet build`.
+# 5. Run tests and generate a JUnit report via `dotnet test`.
+# 6. Upload test results as an artifact to the pipeline.
 name: .NET Core CI Pipeline
 
 on:
