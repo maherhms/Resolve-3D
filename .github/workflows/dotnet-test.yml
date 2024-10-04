@@ -30,8 +30,8 @@ jobs:
     - name: Run tests and generate JUnit report
       run: dotnet test "./Resolve 3D/Resolve3D.Tests/Resolve3D.Tests.csproj" --logger "junit;LogFileName=test-results.xml"
 
-    - name: Upload Test Results
-      uses: actions/upload-test-results@v1
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
       with:
-        format: junit
-        path: './Resolve 3D/Resolve3D.Tests/TestResults/test-results.xml'
+        name: Test Results
+        path: "**/test-results.xml"
