@@ -28,11 +28,11 @@ public class ProjectTemplateTests
     {
         // Arrange
         var project = new Project("TestProject", "C:\\Test\\");
-        project.AddScene.Execute(null); // Add a scene
+        project.AddSceneCommand.Execute(null); // Add a scene
         var addedScene = project.Scenes.Last();
 
         // Act: Remove the scene
-        project.RemoveScene.Execute(addedScene);
+        project.RemoveSceneCommand.Execute(addedScene);
         Project.UndoRedo.Undo(); // Undo the remove (scene re-added)
         Project.UndoRedo.Redo(); // Redo the remove
 
@@ -45,7 +45,7 @@ public class ProjectTemplateTests
     {
         // Arrange
         var project = new Project("TestProject", "C:\\Test\\");
-        project.AddScene.Execute(null);
+        project.AddSceneCommand.Execute(null);
         var addedScene = project.Scenes.Last();
 
         // Act
@@ -64,7 +64,7 @@ public class ProjectTemplateTests
         var project = new Project("TestProject", "C:\\Test\\");
 
         // Act
-        project.AddScene.Execute(null);
+        project.AddSceneCommand.Execute(null);
         var newScene = project.Scenes.Last();
 
         // Assert
