@@ -65,10 +65,10 @@ namespace ResolveEditor.GameProject
         }
 
         [DataMember (Name = nameof(GameEntities))]
-        private readonly ObservableCollection<GameEntity> _gameEntities = new ObservableCollection<GameEntity>();
+        private ObservableCollection<GameEntity> _gameEntities = new ObservableCollection<GameEntity>();
         public ReadOnlyObservableCollection<GameEntity> GameEntities { get; private set; }
         public ICommand AddGameEntityCommand { get; private set; }
-        public ICommand RmoveGameEntityCommand { get; private set; }
+        public ICommand RemoveGameEntityCommand { get; private set; }
 
         private void AddGameEntity(GameEntity entity)
         {
@@ -84,6 +84,7 @@ namespace ResolveEditor.GameProject
         [OnDeserialized]
         private void OnDeseralized(StreamingContext context)
         {
+            if(_gameEntities == null) _gameEntities = new ObservableCollection<GameEntity>();
             if (_gameEntities != null)
             {
                 GameEntities = new ReadOnlyObservableCollection<GameEntity>(_gameEntities);
@@ -100,7 +101,7 @@ namespace ResolveEditor.GameProject
                         $"Add {x.Name} to {Name}"));
             });
 
-            RmoveGameEntityCommand = new RelayCommand<GameEntity>(x =>
+            RemoveGameEntityCommand = new RelayCommand<GameEntity>(x =>
             {
                 var entityIndex = _gameEntities.IndexOf(x);
                 RemoveGameEntity(x);
@@ -111,6 +112,8 @@ namespace ResolveEditor.GameProject
                     $"Remove {x.Name}"));
             });
 
+            //AddGameEntityCommand = new RelayCommand<GameEntity>(x => AddGameEntity(x));
+            //RemoveGameEntityCommand = new RelayCommand<GameEntity>(x => RemoveGameEntity(x));
         }
 
         /// <summary>
