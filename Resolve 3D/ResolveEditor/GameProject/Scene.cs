@@ -81,6 +81,13 @@ namespace ResolveEditor.GameProject
             Debug.Assert(_gameEntities.Contains(entity));
             _gameEntities.Remove(entity);
         }
+        /// <summary>
+        /// Reinitializes fields after deserialization:
+        /// - Rebuilds the read-only GameEntities collection and updates the UI.
+        /// - Sets up the AddGameEntity and RemoveGameEntity commands with Undo/Redo functionality.
+        /// - Ensures added entities can be undone and removed entities can be redone, preserving action history.
+        /// </summary>
+
         [OnDeserialized]
         private void OnDeseralized(StreamingContext context)
         {
@@ -110,9 +117,6 @@ namespace ResolveEditor.GameProject
                     () => RemoveGameEntity(x),
                     $"Remove {x.Name}"));
             });
-
-            //AddGameEntityCommand = new RelayCommand<GameEntity>(x => AddGameEntity(x));
-            //RemoveGameEntityCommand = new RelayCommand<GameEntity>(x => RemoveGameEntity(x));
         }
 
         /// <summary>

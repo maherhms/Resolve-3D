@@ -73,6 +73,14 @@ namespace ResolveEditor.GameProject
             Serializer.ToFile(project, project.FullPath);
         }
 
+        /// <summary>
+        /// Reinitializes fields and commands after deserialization:
+        /// - Rebuilds read-only Scenes collection and updates the UI.
+        /// - Sets the ActiveScene to the first active scene.
+        /// - Adds commands for adding/removing scenes with Undo/Redo functionality.
+        /// - Initializes commands for undo, redo, and save operations.
+        /// </summary>
+
         [OnDeserialized]
         private void OnDeseralized(StreamingContext context)
         {
