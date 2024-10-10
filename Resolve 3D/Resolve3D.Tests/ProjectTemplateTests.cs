@@ -6,9 +6,77 @@ using ResolveEditor.Utilities;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 using ResolveEditor;
+using ResolveEditor.Components;
 
 public class ProjectTemplateTests
 {
+    [Fact]
+    public void CanRedoRemoveGameEntity()
+    {
+        // Arrange
+        var project = new Project("TestProject", "C:\\Test\\");
+        var scene = new Scene(project, "TestScene");
+        var gameEntity = new GameEntity(scene);
+        scene.AddGameEntityCommand.Execute(gameEntity);
+        scene.RemoveGameEntityCommand.Execute(gameEntity);
+        Project.UndoRedo.Undo(); // Undo the remove
+
+        // Act
+        Project.UndoRedo.Redo(); // Redo the remove
+
+        // Assert
+        Assert.DoesNotContain(gameEntity, scene.GameEntities); // Game entity should be removed after redo
+    }
+
+    [Fact]
+    public void CanUndoAddGameEntity()
+    {
+        // Arrange
+        var project = new Project("TestProject", "C:\\Test\\");
+        var scene = new Scene(project, "TestScene");
+        var gameEntity = new GameEntity(scene);
+        scene.AddGameEntityCommand.Execute(gameEntity);
+
+        // Act
+        Project.UndoRedo.Undo(); // Undo the addition
+
+        // Assert
+        Assert.DoesNotContain(gameEntity, scene.GameEntities); // Game entity should be removed after undo
+    }
+
+    [Fact]
+    public void CanRemoveGameEntity()
+    {
+        // Arrange
+        var project = new Project("TestProject", "C:\\Test\\");
+        var scene = new Scene(project, "TestScene");
+        var gameEntity = new GameEntity(scene);
+        scene.AddGameEntityCommand.Execute(gameEntity);
+
+        // Act
+        scene.RemoveGameEntityCommand.Execute(gameEntity);
+
+        // Assert
+        Assert.DoesNotContain(gameEntity, scene.GameEntities);
+    }
+
+    [Fact]
+    public void CanAddGameEntity()
+    {
+        // Arrange
+        var project = new Project("TestProject", "C:\\Test\\");
+        var scene = new Scene(project, "TestScene");
+        var gameEntity = new GameEntity(scene);
+
+        // Act
+        scene.AddGameEntityCommand.Execute(gameEntity);
+        var addedEntity = scene.GameEntities.Last();
+
+        // Assert
+        Assert.NotNull(addedEntity);
+        Assert.Equal("TestScene", gameEntity.ParentScene.Name);
+    }
+
     [Fact]
     public void RelayCommandExecutesProperly()
     {
