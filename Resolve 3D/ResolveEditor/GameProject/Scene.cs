@@ -65,7 +65,7 @@ namespace ResolveEditor.GameProject
         }
 
         [DataMember (Name = nameof(GameEntities))]
-        private ObservableCollection<GameEntity> _gameEntities = new ObservableCollection<GameEntity>();
+        private readonly ObservableCollection<GameEntity> _gameEntities = new ObservableCollection<GameEntity>();
         public ReadOnlyObservableCollection<GameEntity> GameEntities { get; private set; }
         public ICommand AddGameEntityCommand { get; private set; }
         public ICommand RemoveGameEntityCommand { get; private set; }
@@ -84,7 +84,6 @@ namespace ResolveEditor.GameProject
         [OnDeserialized]
         private void OnDeseralized(StreamingContext context)
         {
-            if(_gameEntities == null) _gameEntities = new ObservableCollection<GameEntity>();
             if (_gameEntities != null)
             {
                 GameEntities = new ReadOnlyObservableCollection<GameEntity>(_gameEntities);
