@@ -37,6 +37,15 @@ namespace ResolveEditor.Utilities
             _undoAction = undo;
             _redoAction = redo;
         }
+
+        public UndoRedoAction(string property, object instance, object undoValue, object redoValue, string name)
+        {
+            this(
+                () => instance.GetType().GetProperty(property).SetValue(instance, undoValue),
+                () => instance.GetType().GetProperty(property).SetValue(instance, redoValue),
+                name
+                )
+        }
     }
 
     public class UndoRedo
