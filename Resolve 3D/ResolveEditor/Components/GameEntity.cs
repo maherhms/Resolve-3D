@@ -15,6 +15,19 @@ namespace ResolveEditor.Components
 	[KnownType(typeof(Transform))]
     public class GameEntity : ViewModelBase
     {
+		private bool _isEnabled = true;
+        [DataMember]
+        public bool IsEnabled
+		{
+			get { return _isEnabled; }
+			set { if (_isEnabled != value)
+				{
+					_isEnabled = value;
+					OnPropertyChanged(nameof(IsEnabled));
+				}
+}
+		}
+
 		private string _name;
 		[DataMember]
 		public string Name
@@ -48,6 +61,8 @@ namespace ResolveEditor.Components
 			Debug.Assert(scene != null);
 			ParentScene = scene;
 			_components.Add(new Transform(this));
+
+			OnDeserialized(new StreamingContext());
 		}
     }
 }
