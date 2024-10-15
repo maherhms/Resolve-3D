@@ -48,7 +48,7 @@ namespace ResolveEditor.Components
         private readonly ObservableCollection<Component> _components = new ObservableCollection<Component>();
 		public ReadOnlyObservableCollection<Component> Components { get; private set; }
 		public ICommand RenameCommand { get; private set; }
-		public ICommand EnableCommand { get; private set; }
+		public ICommand IsEnabledCommand { get; private set; }
 		[OnDeserialized]
 		void OnDeserialized(StreamingContext context)
 		{
@@ -65,7 +65,15 @@ namespace ResolveEditor.Components
 
 				Project.UndoRedo.Add(new UndoRedoAction(nameof(Name), this, oldName, x, $"Rename Entity {oldName} to {x}"));
 			}, x => x != _name);
-		}
+
+            IsEnabledCommand = new RelayCommand<bool>(x =>
+            {
+                var oldVlaue = _isEnabled;
+                IsEnabled = x;
+
+                Project.UndoRedo.Add(new UndoRedoAction(nameof(IsEnabled), this, oldVlaue, x , x ? $"Enabled {Name}" : $"Disabled {Name}"));
+            });
+        }
 
 		public GameEntity(Scene scene)
 		{
