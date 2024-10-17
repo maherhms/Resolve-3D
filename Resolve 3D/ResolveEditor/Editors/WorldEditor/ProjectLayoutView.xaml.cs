@@ -36,13 +36,7 @@ namespace ResolveEditor.Editors
         }
         private void GameEntities_ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            GameEntityView.Instance.DataContext = null;
             var listBox = sender as ListBox;
-            if (e.AddedItems.Count > 0)
-            {
-                GameEntityView.Instance.DataContext = (sender as ListBox).SelectedItems[0];
-            }
-
             var newSelection = listBox.SelectedItems.Cast<GameEntity>().ToList();
             var previousSelection = newSelection.Except(e.AddedItems.Cast<GameEntity>()).Concat(e.RemovedItems.Cast<GameEntity>()).ToList();
 
@@ -59,6 +53,13 @@ namespace ResolveEditor.Editors
                 },
                 "Selection Changed"
                 ));
+
+            MSGameEntity msEntity = null;
+            if (newSelection.Any())
+            {
+                msEntity = new MSGameEntity(newSelection);
+            }
+            GameEntityView.Instance.DataContext = msEntity;
         }
     }
 }

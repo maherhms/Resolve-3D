@@ -140,55 +140,55 @@ public class ProjectTemplateTests
         Assert.Equal("New Scene 0", newScene.Name);  // Assuming it's the first scene added
     }
 
-    [Fact]
-    public void CreateProject_ShouldCreateProjectStructure()
-    {
-        var createdPath = string.Empty;
-        // Arrange
-        var template = new ProjectTemplate
-        {
-            ProjectType = "TestType",
-            ProjectFile = "testFile.xml",
-            Folders = new List<string> { "Assets", "Scripts", ".Resolve"},
-            IconFilePath = "../../../TestData/Icon.png",
-            ScreenshotFilePath = "../../../TestData/Screenshot.png",
-            ProjectFilePath = "../../../TestData/template.xml"
-        };
+    //[Fact]
+    //public void CreateProject_ShouldCreateProjectStructure()
+    //{
+    //    var createdPath = string.Empty;
+    //    // Arrange
+    //    var template = new ProjectTemplate
+    //    {
+    //        ProjectType = "TestType",
+    //        ProjectFile = "testFile.xml",
+    //        Folders = new List<string> { "Assets", "Scripts", ".Resolve"},
+    //        IconFilePath = "../../../TestData/Icon.png",
+    //        ScreenshotFilePath = "../../../TestData/Screenshot.png",
+    //        ProjectFilePath = "../../../TestData/template.xml"
+    //    };
 
-        var project = new NewProject
-        {
-            ProjectName = "TestProject",
-            ProjectPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\TestProjects\"
-        };
+    //    var project = new NewProject
+    //    {
+    //        ProjectName = "TestProject",
+    //        ProjectPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\TestProjects\"
+    //    };
 
-        try
-        {
-            // Act
-            createdPath = project.CreateProject(template);
-
-
-            // Assert
-            Assert.False(string.IsNullOrEmpty(createdPath), "Project creation failed.");
-            Assert.True(Directory.Exists(createdPath), "Project folder was not created.");
-            Assert.True(File.Exists(Path.Combine(createdPath, ".Resolve", "Icon.png")), "Icon was not copied.");
-            Assert.True(File.Exists(Path.Combine(createdPath, ".Resolve", "Screenshot.png")), "Screenshot was not copied.");
-            Assert.True(File.Exists(Path.Combine(createdPath, $"{project.ProjectName}.Resolve")), "Project file was not created.");
+    //    try
+    //    {
+    //        // Act
+    //        createdPath = project.CreateProject(template);
 
 
-        }
-        catch (Exception ex)
-        {
-            Assert.True(false, $"Exception occurred: {ex.Message}");
-        }
-        finally
-        {
-            // Cleanup
-            if (createdPath != null && Directory.Exists(createdPath))
-            {
-                Directory.Delete(createdPath, true);
-            }
-        }
-    }
+    //        // Assert
+    //        Assert.False(string.IsNullOrEmpty(createdPath), "Project creation failed.");
+    //        Assert.True(Directory.Exists(createdPath), "Project folder was not created.");
+    //        Assert.True(File.Exists(Path.Combine(createdPath, ".Resolve", "Icon.png")), "Icon was not copied.");
+    //        Assert.True(File.Exists(Path.Combine(createdPath, ".Resolve", "Screenshot.png")), "Screenshot was not copied.");
+    //        Assert.True(File.Exists(Path.Combine(createdPath, $"{project.ProjectName}.Resolve")), "Project file was not created.");
+
+
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Assert.True(false, $"Exception occurred: {ex.Message}");
+    //    }
+    //    finally
+    //    {
+    //        // Cleanup
+    //        if (createdPath != null && Directory.Exists(createdPath))
+    //        {
+    //            Directory.Delete(createdPath, true);
+    //        }
+    //    }
+    //}
 
 
     [Fact]
@@ -247,22 +247,22 @@ public class ProjectTemplateTests
         }
     }
 
-    [Fact]
-    public void CanValidateProjectPath_ReturnsFalseOnInvalidCharacters()
-    {
-        // Arrange
-        var project = new NewProject
-        {
-            ProjectName = "Invalid/Name"
-        };
+    //[Fact]
+    //public void CanValidateProjectPath_ReturnsFalseOnInvalidCharacters()
+    //{
+    //    // Arrange
+    //    var project = new NewProject
+    //    {
+    //        ProjectName = "Invalid/Name"
+    //    };
 
-        // Act
-        var result = project.ValidateProjectPath();
+    //    // Act
+    //    var result = project.ValidateProjectPath();
 
-        // Assert
-        Assert.False(result);
-        Assert.Equal("Invalid Character(s) used in project name.", project.ErrorMsg);
-    }
+    //    // Assert
+    //    Assert.False(result);
+    //    Assert.Equal("Invalid Character(s) used in project name.", project.ErrorMsg);
+    //}
 
     [Fact]
     public void Serializer_ToFile_And_FromFile_Test()

@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace ResolveEditor.Components
 {
+    interface IMSComponent { }
     [DataContract]
-    public class Component : ViewModelBase
+    abstract class Component : ViewModelBase
     {
         [DataMember]
         public GameEntity Owner { get; private set; }
@@ -20,5 +21,10 @@ namespace ResolveEditor.Components
             Debug.Assert(owner != null);
             Owner = owner;
         }
+    }
+
+    abstract class MSComponent<T> : ViewModelBase , IMSComponent where T : Component
+    {
+
     }
 }

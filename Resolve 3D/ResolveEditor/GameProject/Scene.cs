@@ -18,7 +18,7 @@ namespace ResolveEditor.GameProject
     /// Represents a scene within a project, including its name, project reference, and active status.
     /// </summary>
     [DataContract]
-    public class Scene : ViewModelBase
+    class Scene : ViewModelBase
     {
         private string _name;
 
