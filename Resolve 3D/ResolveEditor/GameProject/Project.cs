@@ -66,11 +66,12 @@ namespace ResolveEditor.GameProject
         }
         public void Unload()
         {
-
+            UndoRedo.Reset();
         }
         public static void Save(Project project)
         {
             Serializer.ToFile(project, project.FullPath);
+            Logger.Log(MessageType.Info, $"{project.Name} saved to {project.FullPath}");
         }
 
         /// <summary>
