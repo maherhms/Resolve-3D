@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 
 namespace ResolveEditor.Utilities
 {
@@ -35,10 +36,13 @@ namespace ResolveEditor.Utilities
             Line = line;
         }
     }
-    internal class Logger
+    static class Logger
     {
+        private static int _messageFilter =(int)(MessageType.Info | MessageType.Warning | MessageType.Error);
         private readonly static ObservableCollection<LogMessage> _messages = new ObservableCollection<LogMessage>();
         public static ReadOnlyObservableCollection<LogMessage> Messages { get; } = new ReadOnlyObservableCollection<LogMessage>(_messages);
+        public static CollectionViewSource FilteredMessages
+        { get; } = new CollectionViewSource() { Source = Messages };
         public static async void Log(MessageType type, string msg,
             [CallerFilePath]string file = "", 
             [CallerMemberName]string caller = "", 
@@ -48,6 +52,26 @@ namespace ResolveEditor.Utilities
             {
                 _messages.Add(new LogMessage(type, msg, file, caller, line));
             }));
+        }
+        public static async void Clear()
+        {
+            await Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                _messages.Clear();
+            }));
+        }
+        public static void SetMessageFilter(int mask)
+        {
+            _messageFilter = mask;
+            FilteredMessages.View.Refresh();
+        }
+        static Logger()
+        {
+            FilteredMessages.Filter += (s, e) =>
+            {
+                var type = (int)(e.Item as LogMessage).MessageType;
+                e.Accepted = (type & _messageFilter) != 0;
+            };
         }
     }
 }
