@@ -13,7 +13,10 @@ using System.Windows.Input;
 
 namespace ResolveEditor.Components
 {
-	[DataContract]
+    /// <summary>
+    /// Represents a game entity within a scene, supporting renaming, enabling/disabling, and undo/redo functionality.
+    /// </summary>
+    [DataContract]
 	[KnownType(typeof(Transform))]
     class GameEntity : ViewModelBase
     {
@@ -49,7 +52,11 @@ namespace ResolveEditor.Components
 		public ReadOnlyObservableCollection<Component> Components { get; private set; }
 		public ICommand RenameCommand { get; private set; }
 		public ICommand IsEnabledCommand { get; private set; }
+
 		[OnDeserialized]
+        /// <summary>
+        /// Initializes the component collection and command bindings after deserialization.
+        /// </summary>
 		void OnDeserialized(StreamingContext context)
 		{
 			if (_components != null)
@@ -74,8 +81,10 @@ namespace ResolveEditor.Components
                 Project.UndoRedo.Add(new UndoRedoAction(nameof(IsEnabled), this, oldVlaue, x , x ? $"Enabled {Name}" : $"Disabled {Name}"));
             });
         }
-
-		public GameEntity(Scene scene)
+        /// <summary>
+        /// Initializes a new GameEntity with a reference to its parent scene.
+        /// </summary>
+        public GameEntity(Scene scene)
 		{
 			Debug.Assert(scene != null);
 			ParentScene = scene;
@@ -84,8 +93,10 @@ namespace ResolveEditor.Components
 			OnDeserialized(new StreamingContext());
 		}
     }
-
-	abstract class MSEntity : ViewModelBase
+    /// <summary>
+    /// Represents a multi-selection entity that manages properties for selected GameEntities.
+    /// </summary>
+    abstract class MSEntity : ViewModelBase
 	{
         //enables updates to selected entities
         private bool _enableUpdates = true;
@@ -122,8 +133,11 @@ namespace ResolveEditor.Components
 		private readonly ObservableCollection<IMSComponent> _components = new ObservableCollection<IMSComponent> ();
 		public ReadOnlyObservableCollection<IMSComponent> Components { get; }
 		public List<GameEntity> SelectedEntities { get; }
-
-		public static float? GetMixedValue(List<GameEntity> entities, Func<GameEntity, float> getProperty)
+        /// <summary>
+        /// Returns the common float value across all entities for a specific property. 
+        /// Returns null if values differ between entities.
+        /// </summary>
+        public static float? GetMixedValue(List<GameEntity> entities, Func<GameEntity, float> getProperty)
 		{
 			var value = getProperty(entities.First());
             foreach (var entity in entities.Skip(1))
@@ -135,6 +149,10 @@ namespace ResolveEditor.Components
             }
             return value;
 		}
+        /// <summary>
+        /// Returns the common bool value across all entities for a specific property. 
+        /// Returns null if values differ between entities.
+        /// </summary>
         public static bool? GetMixedValue(List<GameEntity> entities, Func<GameEntity, bool> getProperty)
         {
             var value = getProperty(entities.First());
@@ -147,6 +165,10 @@ namespace ResolveEditor.Components
             }
             return value;
         }
+        /// <summary>
+        /// Returns the common string value across all entities for a specific property. 
+        /// Returns null if values differ between entities.
+        /// </summary>
         public static string? GetMixedValue(List<GameEntity> entities, Func<GameEntity, string> getProperty)
         {
             var value = getProperty(entities.First());
@@ -159,7 +181,9 @@ namespace ResolveEditor.Components
             }
             return value;
         }
-
+        /// <summary>
+        /// Updates the properties of selected GameEntities when the MSEntity's properties change.
+        /// </summary>
         protected virtual bool UpdateGameEntities(string propertyName)
         {
             switch (propertyName)
@@ -169,6 +193,10 @@ namespace ResolveEditor.Components
             }
             return false;
         }
+        /// <summary>
+        /// Updates the multi-selection entity's properties (IsEnabled and Name) based on the selected entities' common values.
+        /// </summary>
+        /// <returns>Returns true after successfully updating the properties.</returns>
         protected virtual bool UpdateMSGameEntity()
 		{
 			IsEnabled = GetMixedValue(SelectedEntities, new Func<GameEntity, bool>(x => x.IsEnabled));
@@ -176,13 +204,18 @@ namespace ResolveEditor.Components
 
 			return true;
 		}
-
+        /// <summary>
+        /// Refreshes the properties of the multi-selection entity.
+        /// </summary>
         public void Refresh()
 		{
             _enableUpdates = false;
 			UpdateMSGameEntity();
             _enableUpdates = true;
 		}
+        /// <summary>
+        /// Initializes a new MSEntity with a list of selected GameEntities.
+        /// </summary>
         public MSEntity(List<GameEntity> entities)
         {
             Debug.Assert (entities?.Any() == true);
@@ -191,9 +224,14 @@ namespace ResolveEditor.Components
 			PropertyChanged += (s, e) => { if(_enableUpdates) UpdateGameEntities(e.PropertyName); };
         }
     }
-
+    /// <summary>
+    /// Represents a multi-selection GameEntity, synchronizing the properties of multiple GameEntities.
+    /// </summary>
     class MSGameEntity : MSEntity
     {
+        /// <summary>
+        /// Initializes a new MSGameEntity with a list of selected GameEntities and refreshes their properties.
+        /// </summary>
         public MSGameEntity(List<GameEntity> entities) : base(entities)
         {
             Refresh();
