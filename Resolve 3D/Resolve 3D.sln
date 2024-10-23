@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResolveEditor", "ResolveEdi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{E51B7835-5B59-4DC4-8FD1-82885D38D83D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resolve3D.Tests", "Resolve3D.Tests\Resolve3D.Tests.csproj", "{BBCA3C72-BA3F-4EEF-8100-6670D1D78FA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resolve3D.Tests", "Resolve3D.Tests\Resolve3D.Tests.csproj", "{BBCA3C72-BA3F-4EEF-8100-6670D1D78FA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
