@@ -170,7 +170,7 @@ namespace ResolveEditor.Components
         {
             switch (propertyName)
             {
-                case nameof(IsEnabled): SelectedEntities.ForEach(x => x.IsEnabled = true); return true;
+                case nameof(IsEnabled): SelectedEntities.ForEach(x => x.IsEnabled = IsEnabled.Value); return true;
                 case nameof(Name): SelectedEntities.ForEach(x => x.Name = Name); return true;
             }
             return false;
