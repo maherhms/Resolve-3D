@@ -50,8 +50,6 @@ namespace ResolveEditor.Components
         [DataMember (Name =nameof(Components))]
         private readonly ObservableCollection<Component> _components = new ObservableCollection<Component>();
 		public ReadOnlyObservableCollection<Component> Components { get; private set; }
-		public ICommand RenameCommand { get; private set; }
-		public ICommand IsEnabledCommand { get; private set; }
 
 		[OnDeserialized]
         /// <summary>
@@ -64,22 +62,6 @@ namespace ResolveEditor.Components
 				Components = new ReadOnlyObservableCollection<Component>(_components);
 				OnPropertyChanged(nameof(Components));
 			}
-
-			RenameCommand = new RelayCommand<string>(x =>
-			{
-				var oldName = _name;
-				Name = x;
-
-				Project.UndoRedo.Add(new UndoRedoAction(nameof(Name), this, oldName, x, $"Rename Entity {oldName} to {x}"));
-			}, x => x != _name);
-
-            IsEnabledCommand = new RelayCommand<bool>(x =>
-            {
-                var oldVlaue = _isEnabled;
-                IsEnabled = x;
-
-                Project.UndoRedo.Add(new UndoRedoAction(nameof(IsEnabled), this, oldVlaue, x , x ? $"Enabled {Name}" : $"Disabled {Name}"));
-            });
         }
         /// <summary>
         /// Initializes a new GameEntity with a reference to its parent scene.
