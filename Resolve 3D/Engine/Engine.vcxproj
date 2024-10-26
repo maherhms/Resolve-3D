@@ -12,6 +12,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\CommonHeaders.h" />
+    <ClInclude Include="Common\id.h" />
+    <ClInclude Include="Common\PrimitiveTypes.h" />
+    <ClInclude Include="Components\ComponentsCommon.h" />
+    <ClInclude Include="Components\Entity.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Components\Entity.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -62,6 +69,7 @@
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CallingConvention>FastCall</CallingConvention>
+      <AdditionalIncludeDirectories>$(ProjectDir)Common</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -90,6 +98,7 @@
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CallingConvention>FastCall</CallingConvention>
+      <AdditionalIncludeDirectories>$(ProjectDir)Common</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

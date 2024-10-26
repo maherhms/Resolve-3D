@@ -7,5 +7,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\CommonHeaders.h" />
+    <ClInclude Include="Common\PrimitiveTypes.h" />
+    <ClInclude Include="Common\id.h" />
+    <ClInclude Include="Components\Entity.h" />
+    <ClInclude Include="Components\ComponentsCommon.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Components\Entity.cpp" />
   </ItemGroup>
 </Project>
