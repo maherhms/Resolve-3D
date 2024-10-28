@@ -3,13 +3,9 @@
 #include "ComponentsCommon.h"
 
 namespace resolve {
-namespace transform {
-struct init_info;
-}
-namespace game_entity {
 
 #define INIT_INFO(component) \
-  namespace {                \
+  namespace component {      \
   struct init_info;          \
   }
 
@@ -17,6 +13,7 @@ INIT_INFO(transform);
 
 #undef INIT_INFO
 
+namespace game_entity {
 struct entity_info {
   transform::init_info* transform{nullptr};
 };
