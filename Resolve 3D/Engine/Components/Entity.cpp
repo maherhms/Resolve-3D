@@ -21,6 +21,7 @@ entity create_game_entity(const entity_info& info) {
   if (free_ids.size() > id::min_deleted_elements) {
     id = free_ids.front();
     assert(!is_alive(entity{id}));
+    free_ids.pop_front();
     id = entity_id{id::new_generation(id)};
     ++generations[id::index(id)];
   } else {
