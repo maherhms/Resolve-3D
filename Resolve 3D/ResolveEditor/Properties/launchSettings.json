@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ResolveEditor": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

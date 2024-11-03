@@ -9,7 +9,7 @@ using id_type = u32;
 
 namespace internal {
 // Constants defining bit allocation for ID structure.
-constexpr u32 generation_bits{8};
+constexpr u32 generation_bits{10};
 constexpr u32 index_bits{sizeof(id_type) * 8 - generation_bits};
 // Masks to isolate index and generation bits.
 constexpr id_type index_mask{(id_type{1} << index_bits) - 1};
