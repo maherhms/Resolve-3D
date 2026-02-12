@@ -34,7 +34,7 @@ It includes a WPF-based interface for project management and game scene handling
 
 ---
 
-## 🔧 **Version 0.2** - Features & Improvements (Q1 2025)
+## 🔧 **Version 0.2** - Features & Improvements (Q1)
 - [ ] Source filing
 - [ ] Building and loading the game
 - [ ] Saving a game and 
@@ -42,7 +42,7 @@ It includes a WPF-based interface for project management and game scene handling
 
 ---
 
-## 🌟 **Version 1.2** - Advanced Features (Q2 2025)
+## 🌟 **Version 1.2** - Advanced Features (Q2)
 - [ ] Implement the geometry pipeline
 - [ ] Processing vertex
 - [ ] Processing vertex UV 
