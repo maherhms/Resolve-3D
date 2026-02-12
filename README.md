@@ -22,7 +22,7 @@ It includes a WPF-based interface for project management and game scene handling
 
 # Project Roadmap
 
-## 🚀 **Version 0.1** - End of 2024
+## 🚀 **Version 0.5** - Beta phase
 - [x] Basic project creation and management.
 - [x] WPF interface for project navigation.
 - [x] Scene creation and editing.
@@ -34,7 +34,7 @@ It includes a WPF-based interface for project management and game scene handling
 
 ---
 
-## 🔧 **Version 0.2** - Features & Improvements (Q1)
+## 🔧 **Version 1.0** - Features & Improvements (Q1)
 - [ ] Source filing
 - [ ] Building and loading the game
 - [ ] Saving a game and 
